@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import tg from './Telegram'
+
+const user = ref("")
+
+onMounted(() => {
+  tg?.ready()
+  tg?.expand()
+  user.value = tg?.initDataUnsafe?.user
+})
+
+function closeApp() {
+  tg?.close()
+}
+</script>
+
 <template>
   <div class="app">
     <h1>Привет, {{ user?.first_name || 'гость' }} 👋</h1>
@@ -5,23 +22,6 @@
     <button @click="closeApp">Закрыть</button>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { tg } from './Telegram'
-
-const user = ref<any>(null)
-
-onMounted(() => {
-  tg.ready()
-  tg.expand()
-  user.value = tg.initDataUnsafe?.user
-})
-
-function closeApp() {
-  tg.close()
-}
-</script>
 
 <style scoped>
 .app {
@@ -33,17 +33,6 @@ button {
   margin-top: 20px;
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'

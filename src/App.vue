@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import tg from './Telegram'
 
-const user = ref("")
+const user = ref()
 
 onMounted(() => {
   tg?.ready()

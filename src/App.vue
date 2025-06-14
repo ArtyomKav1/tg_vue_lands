@@ -1,11 +1,58 @@
+<template>
+  <div class="app">
+    <h1>Привет, {{ user?.first_name || 'гость' }} 👋</h1>
+    <p>Это мини-приложение Telegram на Vue 3!</p>
+    <button @click="closeApp">Закрыть</button>
+  </div>
+</template>
+
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, onMounted } from 'vue'
+import { tg } from './Telegram'
+
+const user = ref<any>(null)
+
+onMounted(() => {
+  tg.ready()
+  tg.expand()
+  user.value = tg.initDataUnsafe?.user
+})
+
+function closeApp() {
+  tg.close()
+}
 </script>
 
-<template>
+<style scoped>
+.app {
+  padding: 20px;
+  text-align: center;
+}
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
+</script> -->
+
+<!-- <template>
   <div>tg</div>
-  <!-- <header>
+  <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
@@ -18,10 +65,10 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </header>
 
-  <RouterView /> -->
-</template>
+  <RouterView />
+</template> -->
 
-<style scoped>
+<!-- <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -83,4 +130,4 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-</style>
+</style> -->
